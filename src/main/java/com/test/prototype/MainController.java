@@ -17,6 +17,9 @@ public class MainController implements Serializable {
 
     private static final long serialVersionUID = 1l;
 
+    private String principalName;
+    private String remoteHost;
+
     @Inject
     Principal principal;
 
@@ -40,12 +43,15 @@ public class MainController implements Serializable {
 
     @PostConstruct
     public void init() {
-        System.out.println("Start session: name=" + principal.getName() + ", host:" + httpRequest.getRemoteHost());
+        principalName = principal.getName();
+        remoteHost = httpRequest.getRemoteHost();
+
+        System.out.println("Start session: name=" + principalName + ", host:" + remoteHost);
     }
 
     @PreDestroy
     public void destroy() {
-        System.out.println("Stop session: name=" + principal.getName() + ", host:" + httpRequest.getRemoteHost());
+        System.out.println("Stop session: name=" + principalName + ", host:" + remoteHost);
     }
 
 }
